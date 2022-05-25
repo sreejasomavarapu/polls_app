@@ -1,0 +1,43 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+
+<a href="{% url 'list'%}" class="btn btn-danger mb-3 mt-3 btn-sm">Back to Polls</a>
+<a href="{% url 'detail_question' question.pk %}" class="btn btn-secondary mb-3 mt-3 btn-sm">Vote again</a>
+{% if error_message %}
+<p class="alert alert-danger">
+    <strong>{{ error_message }}</strong>
+</p>
+{% endif %}
+
+<div class="card py-2">
+    <div class="card-body"> 
+        
+        <h2 class="py-3"><center>{{question.question_title}}</center></h2>
+        
+        <form method="POST" action="{% url 'vote_question' question.pk %}" >
+        {% csrf_token %}
+        {% for choice in choices %}
+        <div class="form-check"> 
+            <input class="form-check-input" name="choice" type="radio" value="{{choice.pk}}" id="choice {{ forloop.counter }}">
+            <!-- Here we are sending value to vote and in value we are getting object with pk=request.POST['choice']
+            So value needs to be pk of choice 
+            for in label should point (same as ) to the id in input tag so here for every choice we need a unique
+            id so we are using forloop.counter it counts number of iterations  
+            name is also imporatant because while pk=request.POST['choice'] we are taking selected of choice -->
+            <label class="form-check-label" for="choice{{forloop.counter}}" >
+                {{choice}}
+            </label>
+         </div>
+        {% endfor %}
+        <div class="d-grid gap-2 py-3">
+            
+        <input type="submit" value="Vote" class="btn btn-success"/>
+        </div>
+    </form>
+
+
+
+</div>
+</div>
+{% endblock %}

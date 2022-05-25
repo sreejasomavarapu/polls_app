@@ -1,0 +1,16 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+<h2 class="py-3"><center>{{question}}</h2></center>
+<ul class="list-group mb-5">
+{% for choice in question.choice_set.all %}
+<li class="list-group-item">
+    <!-- float-right is not working -->
+{{choice}}<span class="badge badge-warning  text-primary float-right ml-5"> {{choice.votes}} vote{{ choice.votes | pluralize}}</span>
+
+
+</li>
+{% endfor %}
+</ul>
+<a href="{% url 'list' %}" class="btn btn-primary btn-sm">Back to Polls</a>
+
+{% endblock %}

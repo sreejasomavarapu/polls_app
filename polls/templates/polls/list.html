@@ -1,0 +1,18 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+<h1><center>Polls</center></h1>
+{% for question in questions %}
+
+<div class="card">
+<div class="card-body"> 
+
+<p>{{question.question_title}}</p>
+<a href="{% url 'detail_question' question.pk %}" class="btn btn-primary btn-sm">Vote Now</a>
+<a href="{% url 'results_question' question.pk %}" class="btn btn-secondary btn-sm">Results</a>
+</div>
+</div> 
+
+
+
+{% endfor %}
+{% endblock %}
